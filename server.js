@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/urlShortener', {
 });
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 
 app.get('/', async (req, res) => {
   const shortUrls = await ShortUrl.find();
@@ -21,11 +21,15 @@ app.post('/shortUrls', async (req,res)=> {
 });
 
 app.get('/:shortUrl', async (req,res)=> {
-  const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl});
+  // console.log(req.params.shortUrl)
+  const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
+  
   if (shortUrl == null) return res.sendStatus(404);
-  shortUrl.clicks++;
-  shortUrl.save();
+  const count = shortUrl.clicks+1;
+  console.log('test');
+
+  ShortUrl.findOneAndUpdate(shortUrl, {clicks: count});
   res.redirect(shortUrl.full);
 });
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 3000);

@@ -26,7 +26,7 @@
           <th>Clicks</th>
         </tr>
         <tbody>
-          <% shortUrls.forEach(shortUrl => {%>
+          <% shortUrls.forEach(shortUrl => { %>
           <tr>
             <td>
               <a href="<%shortUrl.full%>"><%=shortUrl.full%></a>
@@ -36,7 +36,7 @@
             </td>
             <td><%=shortUrl.clicks%></td>
           </tr>
-          <%}) %>
+          <% }) %>
         </tbody>
       </thead>
     </table>
